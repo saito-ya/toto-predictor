@@ -7,22 +7,28 @@ from jleague.items.game_result_item import GameResultItem
 
 BASE_URL = 'https://data.j-league.or.jp/SFMS01'
 
-COMPETITION_YEAR = '2022'   # 年度
+COMPETITION_YEAR = '2015'   # 年度
 COMPETITION_FRAME_ID = '1'  # 大会のカテゴリ
-COMPETITION_SECTION_ID_FROM = 5053  # どの節からデータを取得するか
-COMPETITION_SECTION_ID_TO = 5053  # どの節までデータを取得するか
+# COMPETITION_SECTION_ID_FROM = 5053  # どの節からデータを取得するか
+# COMPETITION_SECTION_ID_TO = 5053  # どの節までデータを取得するか
 
-def get_start_urls(year: str, frame_id: str, section_id_from: int, section_id_to: int) -> list[str]:
-    return [
-        f'{BASE_URL}/search?competition_years={year}&competition_frame_ids={frame_id}&competition_section_ids={id}'
-        for id
-        in range(section_id_from, section_id_to+1, 1)
-    ]
+# def get_start_urls(year: str, frame_id: str, section_id_from: int, section_id_to: int) -> list[str]:
+#     return [
+#         f'{BASE_URL}/search?competition_years={year}&competition_frame_ids={frame_id}&competition_section_ids={id}'
+#         for id
+#         in range(section_id_from, section_id_to+1, 1)
+#     ]
+
+# def get_start_urls(year: str, frame_id: str) -> list[str]:
+#     return [
+#         f'{BASE_URL}/search?competition_years={year}&competition_frame_ids={frame_id}'
+#     ]
 
 class GameResultSpider(scrapy.Spider):
     name = 'data.j-league.or.jp/SFMS01'
     allowed_domains = ['data.j-league.or.jp']
     start_urls = get_start_urls(COMPETITION_YEAR, COMPETITION_FRAME_ID, COMPETITION_SECTION_ID_FROM, COMPETITION_SECTION_ID_TO)
+    # start_urls = get_start_urls(COMPETITION_YEAR, COMPETITION_FRAME_ID)
 
     def parse(self, response):
         table = response.xpath('//table[contains(@class, "search-table")]')
