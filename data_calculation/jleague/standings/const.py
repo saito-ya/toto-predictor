@@ -1,0 +1,1 @@
+GAME_RESULT_DATA_BASE_PATH = '../../../data/scrapy/jleague/data.j-league.or.jp/SFM01'
